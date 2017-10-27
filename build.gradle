@@ -1,0 +1,49 @@
+group 'com.sedisys'
+version '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "com.sedisys.rates.config.JettyServerRunner"
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Rates Fat Jar',
+                'Implementation-Version': 1.0,
+                'Main-Class': 'com.sedisys.rates.config.JettyServerRunner'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+def jerseyVersion = '2.26'
+def swaggerVersion = '1.5.16'
+def metricsVersion = '3.2.5'
+def jettyVersion = '9.4.7.v20170914'
+
+
+dependencies {
+    compile "org.glassfish.jersey.containers:jersey-container-servlet:$jerseyVersion"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:$jerseyVersion"
+    compile "org.glassfish.jersey.ext:jersey-spring4:$jerseyVersion"
+
+    compile "io.swagger:swagger-jersey2-jaxrs:$swaggerVersion"
+
+    compile "io.dropwizard.metrics:metrics-core:$metricsVersion"
+    compile "io.dropwizard.metrics:metrics-jetty9:$metricsVersion"
+    compile "io.dropwizard.metrics:metrics-servlets:$metricsVersion"
+
+    compile "org.eclipse.jetty:jetty-servlets:$jettyVersion"
+    compile "org.eclipse.jetty:jetty-servlet:$jettyVersion"
+
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.2'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
