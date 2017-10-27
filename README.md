@@ -6,7 +6,7 @@ The specs and documentation for this can be found in the api_docs directory unde
 
 A set of metrics for the application can be found at /metrics.
 
-It's a gradle project and can be run with the "gradle run" (or gradlew run, if you don't have gradle installed) command. It will also generate a fat jar in the build\libs directory if you run "gradle fatJar".
+It's a gradle project and can be run with the "gradle run" (or gradlew run, if you don't have gradle installed) command. You can generate a jar with "gradle jar" or a fat jar with "gradle fatJar". They will be in the build/libs directory as rates-1.0.0.jar and rates-all-1.0.0.jar, respectively.
 
 The rates are loaded from a default data.json file contained in the resources section. If you want to use your own file with definitions, adding the path to that file as a command line argument when starting the server will instead load from that file.
 
